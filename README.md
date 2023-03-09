@@ -58,7 +58,7 @@ Set Correct RPC URL and Network Name in the .env file
 yarn
 
 # Serve with hot reload at localhost:8080
-yarn serve
+NODE_OPTIONS=--openssl-legacy-provider yarn serve
 ```
 
 ## Deploy
