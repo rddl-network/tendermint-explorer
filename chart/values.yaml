@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  pullPolicy: IfNotPresent
+  repository: ghcr.io/rddl-network/tendermint-explorer
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
@@ -67,6 +67,21 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+planetmint:
+  image:
+    repository: ghcr.io/planetmint/planetmint-aio
+    pullPolicy: Always
+    tag: "2.3.3"
+  service:
+    type: ClusterIP
+    port:
+      http: 9984
+      ws: 9985
+      p2p: 26656
+      httptm: 26657
+      promtm: 26660
+  resources: {}
 
 autoscaling:
   enabled: false

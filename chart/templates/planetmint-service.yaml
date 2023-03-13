@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: planetmint
+  labels:
+    {{- include "tendermint-explorer.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.planetmint.service.type }}
+  ports:
+    - port: {{ .Values.planetmint.service.port.http }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.planetmint.service.port.ws }}
+      targetPort: ws
+      protocol: TCP
+      name: ws
+    - port: {{ .Values.planetmint.service.port.p2p }}
+      targetPort: p2p
+      protocol: UDP
+      name: p2p
+    - port: {{ .Values.planetmint.service.port.httptm }}
+      targetPort: http-tm
+      protocol: TCP
+      name: http-tm
+    - port: {{ .Values.planetmint.service.port.promtm }}
+      targetPort: prom-tm
+      protocol: TCP
+      name: prom-tm
+  selector:
+    {{- include "tendermint-explorer.selectorLabels" . | nindent 4 }}
