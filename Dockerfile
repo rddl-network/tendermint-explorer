@@ -11,7 +11,7 @@ RUN yarn
 
 # Bundle app source
 COPY . /usr/src/app
-COPY .env.planetmint-aio /usr/src/app/.env
+COPY .env.prod /usr/src/app/.env
 
 RUN yarn build
 
