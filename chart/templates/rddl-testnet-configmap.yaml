@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rddl-testnet-configmap
+data:
+  config.toml: |
+{{ .Values.planetmint.rddl.config | indent 4 }}
+  genesis.json: |
+{{ .Values.planetmint.rddl.genesis | indent 4 }}

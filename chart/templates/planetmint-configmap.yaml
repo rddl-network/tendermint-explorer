@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: planetmint-configmap
+data:
+  planetmint.json: |
+{{ .Values.planetmint.config | indent 4 }}

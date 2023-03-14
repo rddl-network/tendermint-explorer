@@ -33,6 +33,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.planetmint.image.repository }}:{{ .Values.planetmint.image.tag }}"
           imagePullPolicy: {{ .Values.planetmint.image.pullPolicy }}
+          command:
+            - /bin/bash
+            - -c
+            - |
+              /etc/init.d/tarantool start
+              tendermint node&
+              planetmint -c /planetmint/config/planetmint.json start
           ports:
             - name: http
               containerPort: {{ .Values.planetmint.service.port.http }}
@@ -59,6 +66,20 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.planetmint.resources | nindent 12 }}
+          volumeMounts:
+            - name: planetmint-config
+              mountPath: "/planetmint/config/"
+              readOnly: true
+            - name: rddl-config
+              mountPath: "/tendermint/config/"
+              readOnly: true
+      volumes:
+        - name: planetmint-config
+          configMap:
+            name: planetmint-configmap
+        - name: rddl-config
+          configMap:
+            name: rddl-testnet-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

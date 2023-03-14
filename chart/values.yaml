@@ -82,6 +82,243 @@ planetmint:
       httptm: 26657
       promtm: 26660
   resources: {}
+  config: |
+    {
+        "server": {
+            "bind": "0.0.0.0:9984",
+            "loglevel": "info",
+            "workers": null
+        },
+        "wsserver": {
+            "scheme": "ws",
+            "host": "0.0.0.0",
+            "port": 9985,
+            "advertised_scheme": "ws",
+            "advertised_host": "localhost",
+            "advertised_port": 9985
+        },
+        "tendermint": {
+            "host": "localhost",
+            "port": 26657,
+            "version": "v0.34.15"
+        },
+        "database": {
+            "backend": "tarantool_db",
+            "connection_timeout": 5000,
+            "max_tries": 3,
+            "name": "universe",
+            "reconnect_delay": 0.5,
+            "host": "localhost",
+            "port": 3303,
+            "connect_now": true,
+            "encoding": "utf-8",
+            "login": "guest",
+            "password": "",
+            "service": "tarantoolctl connect"
+        },
+        "log": {
+            "file": "/root/planetmint.log",
+            "error_file": "/root/planetmint-errors.log",
+            "level_console": "info",
+            "level_logfile": "info",
+            "datefmt_console": "%Y-%m-%d %H:%M:%S",
+            "datefmt_logfile": "%Y-%m-%d %H:%M:%S",
+            "fmt_console": "[%(asctime)s] [%(levelname)s] (%(name)s) %(message)s (%(processName)-10s - pid: %(process)d)",
+            "fmt_logfile": "[%(asctime)s] [%(levelname)s] (%(name)s) %(message)s (%(processName)-10s - pid: %(process)d)",
+            "granular_levels": {}
+        },
+        "CONFIGURED": true
+    }
+  rddl:
+    config: |
+      proxy_app = "tcp://127.0.0.1:26658"
+      moniker = "ip-172-31-4-27"
+      fast_sync = true
+      db_backend = "goleveldb"
+      db_dir = "data"
+      log_level = "main:error,state:error,*:error"
+      log_format = "plain"
+      genesis_file = "config/genesis.json"
+      priv_validator_key_file = "priv_validator_key.json"
+      priv_validator_state_file = "priv_validator_state.json"
+      priv_validator_laddr = ""
+      node_key_file = "node_key.json"
+      abci = "socket"
+      filter_peers = false
+      [rpc]
+      laddr = "tcp://0.0.0.0:26657"
+      cors_allowed_origins = [""]
+      cors_allowed_methods = ["HEAD", "GET", "POST", ]
+      cors_allowed_headers = ["Origin", "Accept", "Content-Type", "X-Requested-With", "X-Server-Time", ]
+      grpc_laddr = ""
+      grpc_max_open_connections = 900
+      unsafe = false
+      max_open_connections = 900
+      max_subscription_clients = 10000
+      max_subscriptions_per_client = 10000
+      experimental_subscription_buffer_size = 20000
+      experimental_websocket_write_buffer_size = 20000
+      experimental_close_on_slow_client = false
+      timeout_broadcast_tx_commit = "10s"
+      max_body_bytes = 1000000
+      max_header_bytes = 1048576
+      tls_cert_file = ""
+      tls_key_file = ""
+      pprof_laddr = ""
+      [p2p]
+      laddr = "tcp://0.0.0.0:26656"
+      external_address = ""
+      seeds = ""
+      persistent_peers = "\
+      38cc7790460188f97bfe4d534bfe62e1b4a19536@node1-rddl-testnet.twilightparadox.com:26656,\
+      f1b848ead39f34a27f731c8c3456103e2878b773@node2-rddl-testnet.twilightparadox.com:26656,\
+      14aaa03823474d0dca08d3179fe8b9aa89ab4c0d@node3-rddl-testnet.twilightparadox.com:26656,\
+      490fe112dad16e51f2bf30a9bd924b86365f49fb@node4-rddl-testnet.twilightparadox.com:26656,\
+      040b0a07746f47eb6cacd0298f4603383e031d2f@node6-rddl-testnet.twilightparadox.com:26656,\
+      a36b98bee844bbc24a2d119e10c4718288e9bbf9@node7-rddl-testnet.twilightparadox.com:26656,\
+      a4ee5afed56efbfbc0d08c1d030b1d0291451c59@node8-rddl-testnet.twilightparadox.com:26656,\
+      d430ef857b66ba2c10b4f4c3138d64d6b8d150d3@node9-rddl-testnet.twilightparadox.com:26656\
+      "
+      upnp = false
+      addr_book_file = "addrbook.json"
+      addr_book_strict = true
+      max_num_inbound_peers = 50
+      max_num_outbound_peers = 50
+      unconditional_peer_ids = "\
+      38cc7790460188f97bfe4d534bfe62e1b4a19536,\
+      f1b848ead39f34a27f731c8c3456103e2878b773,\
+      14aaa03823474d0dca08d3179fe8b9aa89ab4c0d,\
+      490fe112dad16e51f2bf30a9bd924b86365f49fb,\
+      040b0a07746f47eb6cacd0298f4603383e031d2f,\
+      a36b98bee844bbc24a2d119e10c4718288e9bbf9,\
+      a4ee5afed56efbfbc0d08c1d030b1d0291451c59,\
+      d430ef857b66ba2c10b4f4c3138d64d6b8d150d3\
+      "
+      persistent_peers_max_dial_period = "30s"
+      flush_throttle_timeout = "100ms"
+      max_packet_msg_payload_size = 1024
+      send_rate = 102400000
+      recv_rate = 102400000
+      pex = true
+      seed_mode = false
+      private_peer_ids = ""
+      allow_duplicate_ip = false
+      handshake_timeout = "20s"
+      dial_timeout = "3s"
+      [mempool]
+      recheck = false
+      broadcast = true
+      wal_dir = ""
+      size = 100000
+      max_txs_bytes = 1073741824
+      cache_size = 100000
+      keep-invalid-txs-in-cache = false
+      max_tx_bytes = 1048576
+      max_batch_bytes = 0
+      enable = false
+      rpc_servers = ""
+      trust_height = 0
+      trust_hash = ""
+      trust_period = "168h0m0s"
+      discovery_time = "15s"
+      temp_dir = ""
+      chunk_request_timeout = "10s"
+      chunk_fetchers = "4"
+      [fastsync]
+      version = "v0"
+      [consensus]
+      wal_file = "data/cs.wal/wal"
+      timeout_propose = "3s"
+      timeout_propose_delta = "500ms"
+      timeout_prevote = "10s"
+      timeout_prevote_delta = "500ms"
+      timeout_precommit = "2s"
+      timeout_precommit_delta = "500ms"
+      timeout_commit = "2s"
+      double_sign_check_height = 0
+      skip_timeout_commit = false
+      create_empty_blocks = false
+      create_empty_blocks_interval = "0s"
+      peer_gossip_sleep_duration = "100ms"
+      peer_query_maj23_sleep_duration = "2s"
+      indexer = "kv"
+      [instrumentation]
+      prometheus = true
+      prometheus_listen_addr = ":26660"
+      max_open_connections = 3
+      namespace = "tendermint"
+    genesis: |
+      {
+        "genesis_time": "2022-09-16T08:09:03.428896152Z",
+        "chain_id": "RDDL-TESTNET",
+        "initial_height": "0",
+        "consensus_params": {
+          "block": {
+            "max_bytes": "22020096",
+            "max_gas": "-1",
+            "time_iota_ms": "1000"
+          },
+          "evidence": {
+            "max_age_num_blocks": "100000",
+            "max_age_duration": "172800000000000",
+            "max_bytes": "1048576"
+          },
+          "validator": {
+            "pub_key_types": [
+              "ed25519"
+            ]
+          },
+          "version": {}
+        },
+        "validators": [
+          {
+            "address": "A9C4304C07619419F1F2BDD37DED33DCBA029125",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "9a3nq53cffPSp/qE8pwywm05Jz+Cg8CjcBeQfxPibMA="
+            },
+            "power": "10",
+            "name": "RDDL-TESTNET-1"
+          },
+          {
+            "address": "36D68A0923BF7C79BD14D5B28B5E59AC86871844",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "TiqVa4Nc3E5CwTooFiEaWUNtnk2ePmK3ydymfhVm2HQ="
+            },
+            "power": "10",
+            "name": "RDDL-TESTNET-2"
+          },
+          {
+            "address": "C40950163E71D1997061AA1C171BCDBE5320FED8",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "GmAKcA+P58dj3hiZESD9vGNIcH1Wa1/LDYnNXHAvnO8="
+            },
+            "power": "10",
+            "name": "RDDL-TESTNET-3"
+          },
+          {
+            "address": "DAA33B735A0FC93E91CBBF2EA1875814E990D267",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "wKKlVHDTL5gOWcPSiUK4pXPucjYR8elEpys2ca3+iDw="
+            },
+            "power": "10",
+            "name": "RDDL-TESTNET-4"
+          },
+          {
+            "address": "A8A43E589D7159DA146DECB91CCDE038B11205C2",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "sVkOWsTa8igmMUHxd8JfhQnTyz4uqyBU2YKE1I+8+KY="
+            },
+            "power": "10",
+            "name": "RDDL-TESTNET-5"
+          }
+        ],
+        "app_hash": ""
+      }
 
 autoscaling:
   enabled: false
