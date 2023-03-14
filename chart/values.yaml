@@ -160,7 +160,7 @@ planetmint:
       filter_peers = false
       [rpc]
       laddr = "tcp://0.0.0.0:26657"
-      cors_allowed_origins = [""]
+      cors_allowed_origins = ["https://explorer.rddl.io"]
       cors_allowed_methods = ["HEAD", "GET", "POST", ]
       cors_allowed_headers = ["Origin", "Accept", "Content-Type", "X-Requested-With", "X-Server-Time", ]
       grpc_laddr = ""
