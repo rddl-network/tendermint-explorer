@@ -3,7 +3,8 @@ kind: Service
 metadata:
   name: planetmint
   labels:
-    {{- include "tendermint-explorer.labels" . | nindent 4 }}
+    app.kubernetes.io/instance: rddl-explorer
+    app.kubernetes.io/name: planetmint
 spec:
   type: {{ .Values.planetmint.service.type }}
   ports:
@@ -28,4 +29,5 @@ spec:
       protocol: TCP
       name: prom-tm
   selector:
-    {{- include "tendermint-explorer.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/instance: rddl-explorer
+    app.kubernetes.io/name: planetmint
