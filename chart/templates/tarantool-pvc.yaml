@@ -1,0 +1,17 @@
+{{- if .Values.planetmint.persistence.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: planetmint-tarantool
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/instance: rddl-explorer
+    app.kubernetes.io/name: planetmint
+spec:
+  accessModes:
+    - {{ .Values.planetmint.persistence.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.planetmint.persistence.tarantool.size | quote }}
+  storageClassName: {{ .Values.planetmint.persistence.storageClassName | quote }}
+{{- end -}}

@@ -95,6 +95,14 @@ planetmint:
         hosts:
           - testnet-rpc.rddl.io
   resources: {}
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    tarantool:
+      size: 2Gi
+    tendermint:
+      size: 50Gi
+    storageClassName: r3c-prod-client-nfs
   config: |
     {
         "server": {

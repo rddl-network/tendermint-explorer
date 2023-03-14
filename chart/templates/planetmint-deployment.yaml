@@ -76,6 +76,12 @@ spec:
             - name: rddl-config
               mountPath: "/tendermint/config/"
               readOnly: true
+            - name: tarantool-data
+              mountPath: "/var/lib/tarantool/"
+              readOnly: false
+            - name: tendermint-data
+              mountPath: "/tendermint/"
+              readOnly: false
       volumes:
         - name: planetmint-config
           configMap:
@@ -83,6 +89,12 @@ spec:
         - name: rddl-config
           configMap:
             name: rddl-testnet-configmap
+        - name: tarantool-data
+          persistentVolumeClaim:
+            claimName: planetmint-tarantool
+        - name: tendermint-data
+          persistentVolumeClaim:
+            claimName: planetmint-tendermint
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
