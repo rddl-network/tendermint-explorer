@@ -50,8 +50,6 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-        - path: /rpc/
-          pathType: ImplementationSpecific
   tls:
     - secretName: explorer.rddl.io-tls
       hosts:
@@ -82,6 +80,20 @@ planetmint:
       p2p: 26656
       httptm: 26657
       promtm: 26660
+  ingress:
+    enabled: true
+    className: "haproxy"
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: testnet-rpc.rddl.io
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: testnet-rpc.rddl.io-tls
+        hosts:
+          - testnet-rpc.rddl.io
   resources: {}
   config: |
     {
