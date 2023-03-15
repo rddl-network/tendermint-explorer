@@ -156,6 +156,7 @@ export default {
       this.jsonUrl = `${this.blockchain.rpc}/block?height=${this.$route.params.block}`
       let json = await axios.get(this.jsonUrl)
       this.block = json.data.result.block
+      this.block.header.num_txs = parseInt(this.block.data.txs.length)
       this.block.header.height = parseInt(this.block.header.height)
     },
 
