@@ -3,7 +3,7 @@
   tm-cookie-consent
   tm-modal-error(
     v-if="nodes.length === 0"
-    title="Heimdall Explorer is offline."
+    title="RDDL Network Explorer is offline."
     body="The current testnet is offline. The next testnet will be launching soon. Follow us on Twitter to get notified when the next testnet starts."
     btn-icon="forum" btn-value="GitHub repository" btn-url="https://github.com/maticnetwork/tendermint-explorer")
   app-header
