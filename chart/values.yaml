@@ -85,10 +85,13 @@ planetmint:
     className: "haproxy"
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      haproxy.org/path-rewrite: "/planetmint/(.*) /\\1"
     hosts:
       - host: testnet-rpc.rddl.io
         paths:
           - path: /
+            pathType: ImplementationSpecific
+          - path: /planetmint/
             pathType: ImplementationSpecific
     tls:
       - secretName: testnet-rpc.rddl.io-tls
