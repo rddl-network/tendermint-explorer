@@ -22,16 +22,8 @@ tm-page(title=process.env.VUE_APP_NETWORK)
     tm-list-item(dt='Last Commit Hash' dd='N/A')
 
   tm-part(title='Connected To')
-    tm-list-item(dt='RPC Endpoint')
-      div(slot="dd")
-        tm-field.node-input(
-          type="text"
-          v-model="bc.rpc")
-    tm-list-item(dt='Planetmint Endpoint')
-      div(slot="dd")
-        tm-field.node-input(
-          type="text"
-          v-model="bc.pm_rpc")
+    tm-list-item(dt='RPC Endpoint' :dd='bc.rpc')
+    tm-list-item(dt='Planetmint Endpoint' :dd='bc.pm_rpc')
 
 </template>
 
