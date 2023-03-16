@@ -12,7 +12,7 @@ tm-page(title=process.env.VUE_APP_NETWORK)
     tm-list-item(dt='Block Height' :dd='num.prettyInt(latestBlock.header.height)'
       :to="{ name: 'block', params: { block: latestBlock.header.height }}")
     tm-list-item(dt='Block Time' :dd='readableDate(latestBlock.header.time)')
-    tm-list-item(dt='Transactions' :dd='num.prettyInt(latestBlock.header.num_txs)')
+    tm-list-item(dt='Transactions' :dd='num.prettyInt(latestBlock.data.txs.length)')
     tm-list-item(dt='Last Commit Hash' :dd='latestBlock.header.last_commit_hash')
 
   tm-part(title='Current Block' v-else)

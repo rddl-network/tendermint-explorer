@@ -21,6 +21,9 @@ export const latestBlock = (state, getters) => {
         last_commit_hash: "",
         num_txs: 0,   // txs in this block
         total_txs: 0, // total txs in blockchain at the moment of this block
+      },
+      data: {
+        txs: [],
       }
     }
     return block
