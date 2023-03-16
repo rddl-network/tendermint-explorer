@@ -20,7 +20,6 @@ tm-page(:title="`Transaction ${hash}`")
 <script>
 import { mapGetters } from "vuex"
 import axios from "axios"
-import { decodeTx } from "../scripts/tx"
 import PartTxData from './PartTxData'
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
 
@@ -48,16 +47,15 @@ export default {
     decodedTx () {
       let { tx, height } = this
       if (!tx) return
-
-      let txObj = decodeTx(tx)
-      let txHash = this.hash
+      
+      let txHash = this.tx.id
       let block = {
         isRouterLink: true,
         title: "View block details",
         text: height,
         to: { name: "block", params: { block: height } }
       }
-      return Object.assign({ block, txHash }, txObj)
+      return Object.assign({ block, txHash }, tx)
     },
   },
   data: () => ({
@@ -68,10 +66,13 @@ export default {
   }),
   methods: {
     async fetchTx() {
-      this.jsonUrl = `${this.blockchain.rpc}/tx?hash=0x${this.hash}`
-      let json = await axios.get(this.jsonUrl)
-      this.height = json.data.result.height
-      this.tx = json.data.result.tx
+      this.jsonUrlTx = `${this.blockchain.pm_rpc}/api/v1/transactions/${this.hash}`
+      let jsonTx = await axios.get(this.jsonUrlTx)
+
+      this.jsonUrlBlk = `${this.blockchain.pm_rpc}/api/v1/blocks?transaction_id=${this.hash}`
+      let jsonBlk = await axios.get(this.jsonUrlBlk)
+      this.height = jsonBlk.data.height
+      this.tx = jsonTx.data
     },
   },
   async mounted() {

@@ -44,10 +44,11 @@ The user will continue to spam your full node with AJAX requests until they clos
 We need a better backend solution for the Explorer! Please help if you can.
 ## Set Env Variables
 Set Correct RPC URL and Network Name in the .env file
-
+In order to resolve Planetmint and RDDL transactions properly, the `VUE_APP_RPC_PM_URL` env variable has to point to the Planetmint RPC URL.
 ```
- VUE_APP_RPC_URL=http://127.0.0.1:26657
- VUE_APP_RPC_WS_URL=ws://127.0.0.1:26657
+ VUE_APP_RPC_URL=http://localhost:26657
+ VUE_APP_RPC_WS_URL=ws://localhost:26657
+ VUE_APP_RPC_PM_URL=http://localhost:9984
  VUE_APP_NETWORK=Testnet
 ```
 

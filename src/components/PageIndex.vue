@@ -27,6 +27,11 @@ tm-page(title=process.env.VUE_APP_NETWORK)
         tm-field.node-input(
           type="text"
           v-model="bc.rpc")
+    tm-list-item(dt='Planetmint Endpoint')
+      div(slot="dd")
+        tm-field.node-input(
+          type="text"
+          v-model="bc.pm_rpc")
 
 </template>
 
