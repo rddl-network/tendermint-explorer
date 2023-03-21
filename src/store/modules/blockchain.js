@@ -4,6 +4,8 @@ import { RpcClient } from "tendermint"
 const state = {
   rpc: process.env.VUE_APP_RPC_URL,
   pm_rpc: process.env.VUE_APP_RPC_PM_URL,
+  cid_resolver: process.env.VUE_APP_CID_RESOLVER_URL,
+  
   //lcd: "https://gaia-seeds.interblock.io:1317",
   status: {
     listen_addr: "",

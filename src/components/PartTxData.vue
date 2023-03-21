@@ -15,7 +15,8 @@ tm-part(:title="title")
       :dt="x.field"
     )
       template(slot="dd")
-        a(v-if="x.isUrl" :href="x.value" target="_blank") {{ x.value }}
+        a(v-if="x.isHiddenURL" :href="x.myURL" target="_blank") {{ x.value }}
+        a(v-else-if="x.isUrl" :href="x.value" target="_blank") {{ x.value }}
         router-link(v-else-if="x.isRouterLink" :to="x.value.to" :title="x.value.title")
           | {{ x.value.text }}
         span(v-else) {{ x.value }}
@@ -24,6 +25,8 @@ tm-part(:title="title")
 <script>
 import { startCase, isNil, isObject, isString, isArray, sortBy } from 'lodash'
 import { TmListItem, TmPart } from "@tendermint/ui"
+import axios from "axios"
+import { mapGetters } from "vuex"
 
 export const isBase64str = (str) => {
   return isString(str) && str.indexOf(':base64:') === 0
@@ -63,8 +66,8 @@ export default {
     name: { type: String },
     basePath: { type: String },
     pathPrefix: { type: String, default: "" },
-    includeFields: { type: Array, default: [] },
-    excludeFields: { type: Array, default: [] }
+    includeFields: { type: Array, default: () => [] },
+    excludeFields: { type: Array, default: () => [] }
   },
   data () {
     let { basePath, pathPrefix, name } = this
@@ -74,6 +77,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["blockchain"]),
     dataFields () {
       let { data } = this
       if (isNil(data)) return []
@@ -82,6 +86,12 @@ export default {
 
         let cannotInclude = this.includeFields.length > 0 && !this.isIncludedField(fieldPath)
         if (cannotInclude || this.isExcludedField(fieldPath)) return null
+        let isHiddenURL = false
+        let myURL = ""
+        if (field == "data"){
+          myURL = this.resolve_cid_url( v ).data.url
+          isHiddenURL = true
+        }
 
         field = startCase(field)
         let isComplex = false
@@ -99,7 +109,7 @@ export default {
         } else if (isComplexValue(v)) {
           isComplex = true
         }
-        return { field, value: v, path: fieldPath, isComplex, isRouterLink, isUrl }
+        return { field, value: v, path: fieldPath, isComplex, isRouterLink, isUrl, isHiddenURL, myURL }
       }).filter(x => !isNil(x))
       return sortBy(res, x => x.isComplex)
     }
@@ -115,6 +125,9 @@ export default {
     },
     isExcludedField (fieldPath) {
       return this.excludeFields.indexOf(fieldPath) >= 0
+    }, 
+    async resolve_cid_url( cid ){
+      return await axios.get(`${this.blockchain.cid_resolver}/entry/cid?cid=${cid}`)
     }
   }
 }
