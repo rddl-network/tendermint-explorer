@@ -50,6 +50,7 @@ In order to resolve Planetmint and RDDL transactions properly, the `VUE_APP_RPC_
  VUE_APP_RPC_WS_URL=ws://localhost:26657
  VUE_APP_RPC_PM_URL=http://localhost:9984
  VUE_APP_NETWORK=Testnet
+ VUE_APP_CID_RESOLVER_URL=https://cid-resolver.rddl.io
 ```
 
 ## Build

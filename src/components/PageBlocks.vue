@@ -29,7 +29,6 @@ tm-page(title='Blocks')
 import axios from "axios"
 import moment from "moment"
 import num from "../scripts/num"
-import { orderBy } from "lodash"
 
 import { mapGetters } from "vuex"
 import { readableDate } from "../scripts/utils"
