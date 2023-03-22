@@ -73,6 +73,14 @@ export default {
       let jsonBlk = await axios.get(this.jsonUrlBlk)
       this.height = jsonBlk.data.height
       this.tx = jsonTx.data
+      let cid = this.tx.assets["0"].data
+      let router_link = {
+          isRouterLink: true,
+          title: "View CID details",
+          text: cid,
+          to: "/cids/"+cid 
+      }
+      this.tx.assets["0"].data = router_link
     },
   },
   async mounted() {

@@ -1,13 +1,7 @@
 <template lang="pug">
 tm-page(:title="`CID ${cid}`")
-  div(slot="menu"): tm-tool-bar
-    router-link(:to="`/tx/${tx}`")
-      i.material-icons chevron_left
-      | Block {{ height }}
-    a(:href="jsonUrl" target="_blank") JSON
-
-  div(v-if="decodeCID")
-    part-tx-data(
+  div(v-if="!loading")
+    part-cid-data(
       :data="decodeCID"
       name="CID Details"
       pathPrefix="cid."
@@ -20,17 +14,17 @@ tm-page(:title="`CID ${cid}`")
 <script>
 import { mapGetters } from "vuex"
 import axios from "axios"
-import PartTxData from './PartTxData'
+import PartCidData from './PartCIDData'
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
 
 export default {
-  name: "page-block",
+  name: "page-cid",
   components: {
     TmToolBar,
     TmListItem,
     TmPart,
     TmPage,
-    PartTxData
+    PartCidData
   },
   computed: {
     ...mapGetters(["blockchain"]),
@@ -38,36 +32,39 @@ export default {
     cid() {
       return this.$route.params.cid
     },
-    tx() {
-      return this.$route.params.tx
-    },
+//    tx() {
+//      return this.$route.params.tx
+//    },
     decodeCID () {
-      let { tx_id, cid } = this
-      if (!cid) return
+      //let { cid_content  } = this
       
 
-      let tx_page = {
-        isRouterLink: true,
-        title: "View transaction details",
-        text: tx,
-        to: { name: "tx", params: { tx: tx_id } }
-      }
-      return Object.assign({ tx_page, tx_id }, tx)
+//      let tx_page = {
+//        isRouterLink: true,
+//        title: "View transaction details",
+//        text: tx_id,
+//        to: { name: "tx", params: { tx: tx_id } }
+//      }
+//      return Object.assign({ tx_page, tx_id }, cid)
+      return Object.assign(this.cid_content)
     },
   },
   data: () => ({
     jsonUrl: "",
-    // hash: this.$route.params.hash,
-    tx: void 0,
-    cid: "",
+    cid_content: void 0,
+    loading: true
+
   }),
   methods: {
     async fetchCID() {
-      let cid_res = await axios.get(`${this.blockchain.cid_resolver}/entry/cid?cid=${cid}`)
+      this.loading=true
+      let cid_res = await axios.get(`${this.blockchain.cid_resolver}/entry/cid?cid=${this.$route.params.cid}`)
       this.cid_url = cid_res.data.url
-
+      this.cid_content = cid_res.data
+      this.loading=false
       let cid_content_json = await axios.get(cid_res.data.url)
-      this.cid_content = cid_content_json.data
+      this.cid_content = JSON.parse( `{ "cid": "${cid_res.data.cid}", "URL": "${cid_res.data.url}", "content": "${cid_content_json.data}"}`)
+      //this.cid_content = JSON.parse( `{ "data": "test", "abc": "def" }`)
     
     },
   },

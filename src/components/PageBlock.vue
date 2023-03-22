@@ -161,11 +161,6 @@ export default {
     },
 
     // TODO deprecate? (yes)
-    queryTxs() {
-      return this.queryTx(this.block.data.txs.length)
-    },
-
-    // TODO deprecate? (yes)
     queryTx(len, key = 0) {
       return new Promise((resolve, reject) => {
         if (key >= len) resolve()

@@ -1,7 +1,7 @@
 <template lang="pug">
 tm-part(:title="title")
   template(v-for="(x, i) in dataFields")
-    part-tx-data(
+    part-cid-data(
       v-if="x.isComplex"
       :data="x.value"
       :name="namify(x.field)"
@@ -24,8 +24,7 @@ tm-part(:title="title")
 <script>
 import { startCase, isNil, isObject, isString, isArray, sortBy } from 'lodash'
 import { TmListItem, TmPart } from "@tendermint/ui"
-import axios from "axios"
-import { mapGetters } from "vuex"
+
 
 export const isBase64str = (str) => {
   return isString(str) && str.indexOf(':base64:') === 0
@@ -76,7 +75,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["blockchain"]),
     dataFields () {
       let { data } = this
       if (isNil(data)) return []
