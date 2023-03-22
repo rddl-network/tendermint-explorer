@@ -30,8 +30,5 @@ module.exports = {
       .use("")
       .loader("vue-markdown-loader")
       .options(markdown)
-  },
-  configureWebpack: {
-    devtool: 'source-map'
   }
 }
