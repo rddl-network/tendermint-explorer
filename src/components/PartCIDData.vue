@@ -1,7 +1,7 @@
 <template lang="pug">
 tm-part(:title="title")
   template(v-for="(x, i) in dataFields")
-    part-tx-data(
+    part-cid-data(
       v-if="x.isComplex"
       :data="x.value"
       :name="namify(x.field)"
@@ -24,6 +24,7 @@ tm-part(:title="title")
 <script>
 import { startCase, isNil, isObject, isString, isArray, sortBy } from 'lodash'
 import { TmListItem, TmPart } from "@tendermint/ui"
+
 
 export const isBase64str = (str) => {
   return isString(str) && str.indexOf(':base64:') === 0
@@ -51,7 +52,7 @@ const isUrlString = (x) => {
 }
 
 export default {
-  name: 'part-tx-data',
+  name: 'part-cid-data',
 
   components: {
     TmListItem,
@@ -99,7 +100,7 @@ export default {
         } else if (isComplexValue(v)) {
           isComplex = true
         }
-        return { field, value: v, path: fieldPath, isComplex, isRouterLink, isUrl}
+        return { field, value: v, path: fieldPath, isComplex, isRouterLink, isUrl }
       }).filter(x => !isNil(x))
       return sortBy(res, x => x.isComplex)
     }
@@ -115,7 +116,7 @@ export default {
     },
     isExcludedField (fieldPath) {
       return this.excludeFields.indexOf(fieldPath) >= 0
-    }
+    }, 
   }
 }
 </script>

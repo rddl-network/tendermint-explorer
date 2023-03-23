@@ -73,6 +73,26 @@ export default {
       let jsonBlk = await axios.get(this.jsonUrlBlk)
       this.height = jsonBlk.data.height
       this.tx = jsonTx.data
+      if(("data" in jsonTx.data.assets)==true){
+        let cid = jsonTx.data.assets.data.replace(/"/g, '') 
+        this.tx.assets.data = {
+          isRouterLink: true,
+          title: "View CID details",
+          text: cid,
+          to: "/cids/"+cid 
+        }
+      }
+      else{
+        for (var i=0; i < jsonTx.data.assets.length; i++) {
+          let cid = this.tx.assets[i].data.replace(/"/g, '')
+          this.tx.assets[i].data = {
+              isRouterLink: true,
+              title: "View CID details",
+              text: cid,
+              to: "/cids/"+cid 
+          }
+        }
+      }
     },
   },
   async mounted() {
