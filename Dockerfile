@@ -10,7 +10,14 @@ COPY yarn.lock /usr/src/app/
 RUN yarn
 
 # Bundle app source
-COPY . /usr/src/app
+COPY ./babel.config.js /usr/src/app/babel.config.js
+COPY ./index.html /usr/src/app/index.html
+COPY ./nginx /usr/src/app/nginx
+COPY ./package.json /usr/src/app/package.json
+COPY ./package-lock.json /usr/src/app/package-lock.json
+COPY ./public /usr/src/app/public
+COPY ./src /usr/src/app/src
+COPY ./vue.config.js /usr/src/app/vue.config.js
 COPY .env.prod /usr/src/app/.env
 
 RUN yarn build
