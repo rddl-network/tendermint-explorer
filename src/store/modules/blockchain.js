@@ -132,7 +132,7 @@ const mutations = {
     if (value) {
       // add some default ugly avatars
       let validators = value.map(v => {
-        v.avatarUrl = "http://via.placeholder.com/94/191F24/FFFFFF?text=?"
+        v.avatarUrl = "https://via.placeholder.com/94/191F24/FFFFFF?text=?"
         return v
       })
       state.validators = validators
