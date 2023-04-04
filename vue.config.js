@@ -6,7 +6,7 @@ function resolve(dir) {
 
 let markdown = require("markdown-it")({
   preset: "default",
-  html: true,
+  html: false,
   typographer: true,
   linkify: true,
   preprocess: (markdownIt, source) => source
