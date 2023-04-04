@@ -118,7 +118,6 @@ export default {
 </script>
 
 <style lang='stylus'>
-@require '~variables'
 
 .tm-field.node-input
   min-width 20rem

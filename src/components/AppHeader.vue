@@ -59,8 +59,8 @@ export default {
 </script>
 
 <style lang="stylus">
-// @require '../styles/variables.styl'
 @import '~variables'
+
 .LogoType
   font-size 23px
   font-weight bold
