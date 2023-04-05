@@ -14,7 +14,7 @@ export const latestBlock = (state, getters) => {
   if (blocks && blocks.length >= 1) {
     return blocks[0]
   } else {
-    var block = {
+    let block = {
       header: {
         height: 0,
         time: "",

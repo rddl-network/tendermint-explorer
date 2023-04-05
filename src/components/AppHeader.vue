@@ -48,7 +48,6 @@ export default {
         return
       }
       this.$store.commit("SET_CONFIG_DESKTOP", false)
-      return
     }
   },
   mounted() {

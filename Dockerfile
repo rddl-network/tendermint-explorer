@@ -1,4 +1,4 @@
-FROM node:14-alpine as builder
+FROM node:14-alpine AS builder
 
 # Create app directory
 RUN mkdir -p /usr/src/app
