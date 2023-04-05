@@ -32,20 +32,7 @@ export default {
     cid() {
       return this.$route.params.cid
     },
-//    tx() {
-//      return this.$route.params.tx
-//    },
     decodeCID () {
-      //let { cid_content  } = this
-      
-
-//      let tx_page = {
-//        isRouterLink: true,
-//        title: "View transaction details",
-//        text: tx_id,
-//        to: { name: "tx", params: { tx: tx_id } }
-//      }
-//      return Object.assign({ tx_page, tx_id }, cid)
       return Object.assign(this.cid_content)
     },
   },
@@ -64,8 +51,6 @@ export default {
       this.loading=false
       let cid_content_json = await axios.get(cid_res.data.url)
       this.cid_content = JSON.parse( `{ "cid": "${cid_res.data.cid}", "URL": "${cid_res.data.url}", "content": "${cid_content_json.data}"}`)
-      //this.cid_content = JSON.parse( `{ "data": "test", "abc": "def" }`)
-    
     },
   },
   async mounted() {
