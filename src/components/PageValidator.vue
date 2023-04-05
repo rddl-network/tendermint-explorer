@@ -83,7 +83,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@require '../styles/variables.styl'
 
 @media screen and (min-width: 640px)
   #validator-profile .tm-part-main
