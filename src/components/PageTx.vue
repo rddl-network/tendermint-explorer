@@ -73,7 +73,7 @@ export default {
       let jsonBlk = await axios.get(this.jsonUrlBlk)
       this.height = jsonBlk.data.height
       this.tx = jsonTx.data
-      if(("data" in jsonTx.data.assets)==true){
+      if("data" in jsonTx.data.assets){
         let cid = jsonTx.data.assets.data.replace(/"/g, '') 
         this.tx.assets.data = {
           isRouterLink: true,
