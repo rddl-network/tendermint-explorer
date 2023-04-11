@@ -47,21 +47,27 @@ export default {
 <style lang="stylus">
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap')
   @font-face {
-    font-family: './assets/fonts/Helvetica Neue LT Pro';
-    src: url('./assets/fonts/HelveticaNeueLTPro-Cn.woff2') format('woff2'),
-        url('./assets/fonts/HelveticaNeueLTPro-Cn.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    font-family 'Helvetica Neue LT Pro'
+    src: url('./assets/fonts/HelveticaNeueLTPro-Cn.eot');
+    src: url('./assets/fonts/HelveticaNeueLTPro-Cn.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/HelveticaNeueLTPro-Cn.woff2') format('woff2'),
+        url('./assets/fonts/HelveticaNeueLTPro-Cn.woff') format('woff'),
+        url('./assets/fonts/HelveticaNeueLTPro-Cn.svg#HelveticaNeueLTPro-Cn') format('svg')
+    font-weight normal
+    font-style normal
+    font-display swap
 }
 
 @font-face {
-    font-family: './assets/fonts/Helvetica Neue LT Pro';
-    src: url('./assets/fonts/HelveticaNeueLTPro-BdCn.woff2') format('woff2'),
-        url('./assets/fonts/HelveticaNeueLTPro-BdCn.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+    font-family 'Helvetica Neue LT Pro'
+    src: url('./assets/fonts/HelveticaNeueLTPro-BdCn.eot');
+    src: url('./assets/fonts/HelveticaNeueLTPro-BdCn.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/HelveticaNeueLTPro-BdCn.woff2') format('woff2'),
+        url('./assets/fonts/HelveticaNeueLTPro-BdCn.woff') format('woff'),
+        url('./assets/fonts/HelveticaNeueLTPro-BdCn.svg#HelveticaNeueLTPro-BdCn') format('svg')
+    font-weight bold
+    font-style normal
+    font-display swap
 }
 
   .tm-part
