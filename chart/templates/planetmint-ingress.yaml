@@ -1,6 +1,7 @@
 {{- if .Values.planetmint.ingress.enabled -}}
 {{- $fullName := "planetmint" -}}
-{{- $svcPort := .Values.planetmint.service.port.httptm -}}
+{{- $svcPort := .Values.planetmint.service.port.http -}}
+{{- $svcPortTm := .Values.planetmint.service.port.httptm -}}
 {{- if and .Values.planetmint.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.planetmint.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.planetmint.ingress.annotations "kubernetes.io/ingress.class" .Values.planetmint.ingress.className}}
@@ -42,6 +43,7 @@ spec:
       http:
         paths:
           {{- range .paths }}
+          {{- if eq .path "/planetmint/" }}
           - path: {{ .path }}
             {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
             pathType: {{ .pathType }}
@@ -56,6 +58,22 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end }}
+          {{- else }}
+          - path: {{ .path }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPortTm }}
+              {{- else }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $svcPortTm }}
+              {{- end }}
+          {{- end }}
           {{- end }}
     {{- end }}
 {{- end }}

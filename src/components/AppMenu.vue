@@ -45,7 +45,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@require '../styles/variables.styl'
 
 .app-menu
   background var(--app-fg)

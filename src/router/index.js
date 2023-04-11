@@ -14,6 +14,7 @@ import PageValidators from "../components/PageValidators"
 import PageValidatorsIndex from "../components/PageValidatorsIndex"
 import PageValidatorsRevoked from "../components/PageValidatorsRevoked"
 import PageValidator from "../components/PageValidator"
+import CID from "../components/PageCID"
 
 const routes = [
   { path: "/", component: Index },
@@ -22,6 +23,7 @@ const routes = [
   { path: "/blocks/:block", name: "block", component: Block },
   { path: "/tx/:hash", name: "tx", component: Tx }, // TODO rename path to /txs
   { path: "/nodes", component: FullNodes },
+  { path: "/cids/:cid", name: "cids", component: CID },
   {
     name: "node",
     path: "/nodes/:node",
@@ -57,7 +59,7 @@ const routes = [
 export default new Router({
   mode: "history",
   routes: routes,
-  scrollBehavior(to, from) {
+  scrollBehavior(to) {
     if (to.hash && to.hash.length > 0) {
       return {
         selector: to.hash

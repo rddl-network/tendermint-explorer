@@ -46,7 +46,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@require '../styles/variables.styl'
 
 .card-proposal
   border-bottom 1px solid bc-dim

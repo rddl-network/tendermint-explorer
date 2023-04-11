@@ -3,6 +3,9 @@ import { RpcClient } from "tendermint"
 
 const state = {
   rpc: process.env.VUE_APP_RPC_URL,
+  pm_rpc: process.env.VUE_APP_RPC_PM_URL,
+  cid_resolver: process.env.VUE_APP_CID_RESOLVER_URL,
+  
   //lcd: "https://gaia-seeds.interblock.io:1317",
   status: {
     listen_addr: "",
@@ -129,7 +132,7 @@ const mutations = {
     if (value) {
       // add some default ugly avatars
       let validators = value.map(v => {
-        v.avatarUrl = "http://via.placeholder.com/94/191F24/FFFFFF?text=?"
+        v.avatarUrl = "https://via.placeholder.com/94/191F24/FFFFFF?text=?"
         return v
       })
       state.validators = validators

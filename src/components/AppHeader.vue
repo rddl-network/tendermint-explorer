@@ -48,7 +48,6 @@ export default {
         return
       }
       this.$store.commit("SET_CONFIG_DESKTOP", false)
-      return
     }
   },
   mounted() {
@@ -59,8 +58,8 @@ export default {
 </script>
 
 <style lang="stylus">
-// @require '../styles/variables.styl'
 @import '~variables'
+
 .LogoType
   font-size 23px
   font-weight bold

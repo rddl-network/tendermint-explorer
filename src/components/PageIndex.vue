@@ -8,25 +8,22 @@ tm-page(title=process.env.VUE_APP_NETWORK)
     tm-list-item(dt='Precommit State' :dd='precommits')
     tm-list-item(dt='Total Transactions' :dd='num.prettyInt(totalTxs)')
 
-  tm-part(title='Current Block' v-if="latestBlock.height > 0")
-    tm-list-item(dt='Block Height' :dd='num.prettyInt(latestBlock.height)'
-      :to="{ name: 'block', params: { block: latestBlock.height }}")
-    tm-list-item(dt='Block Time' :dd='readableDate(latestBlock.time)')
-    tm-list-item(dt='Transactions' :dd='num.prettyInt(latestBlock.num_txs)')
-    tm-list-item(dt='Last Commit Hash' :dd='latestBlock.last_commit_hash')
+  tm-part(title='Current Block' v-if="latestBlock.header.height > 0")
+    tm-list-item(dt='Block Height' :dd='num.prettyInt(latestBlock.header.height)'
+      :to="{ name: 'block', params: { block: latestBlock.header.height }}")
+    tm-list-item(dt='Block Time' :dd='readableDate(latestBlock.header.time)')
+    tm-list-item(dt='Transactions' :dd='num.prettyInt(latestBlock.data.txs.length)')
+    tm-list-item(dt='Last Commit Hash' :dd='latestBlock.header.last_commit_hash')
 
   tm-part(title='Current Block' v-else)
-    tm-list-item(dt='Block Height' :dd='num.prettyInt(latestBlock.height)'
-      :to="{ name: 'block', params: { block: latestBlock.height }}")
+    tm-list-item(dt='Block Height' :dd='num.prettyInt(latestBlock.header.height)'
+      :to="{ name: 'block', params: { block: latestBlock.header.height }}")
     tm-list-item(dt='Block Time' dd='No blocks yet')
     tm-list-item(dt='Last Commit Hash' dd='N/A')
 
   tm-part(title='Connected To')
-    tm-list-item(dt='RPC Endpoint')
-      div(slot="dd")
-        tm-field.node-input(
-          type="text"
-          v-model="bc.rpc")
+    tm-list-item(dt='RPC Endpoint' :dd='bc.rpc')
+    tm-list-item(dt='Planetmint Endpoint' :dd='bc.pm_rpc')
 
 </template>
 
@@ -121,7 +118,6 @@ export default {
 </script>
 
 <style lang='stylus'>
-@require '~variables'
 
 .tm-field.node-input
   min-width 20rem
