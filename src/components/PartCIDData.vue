@@ -19,6 +19,7 @@ tm-part(:title="title")
         router-link(v-else-if="x.isRouterLink" :to="x.value.to" :title="x.value.title")
           | {{ x.value.text }}
         span(v-else) {{ x.value }}
+        input(type="checkbox" v-model="x.value.isValid")
 </template>
 
 <script>
@@ -71,7 +72,8 @@ export default {
     let { basePath, pathPrefix, name } = this
     return {
       title: basePath ? pathPrefix + basePath : name,
-      hasBasePath: isString(this.basePath) && this.basePath.trim().length > 0
+      hasBasePath: isString(this.basePath) && this.basePath.trim().length > 0,
+      isValid: this.data().verified
     }
   },
   computed: {

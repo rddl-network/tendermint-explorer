@@ -39,6 +39,7 @@ export default {
   data: () => ({
     jsonUrl: "",
     cid_content: void 0,
+    verified: false,
     loading: true
 
   }),
@@ -53,9 +54,17 @@ export default {
       this.cid_content = JSON.parse( `{ "cid": "${cid_res.data.cid}", "URL": "${cid_res.data.url}", "content": "${cid_content_json.data}"}`)
     },
   },
-  async mounted() {
-    await this.fetchCID()
-  },
+    async verify_signature() {
+        let pub_key = this.cid_content.pub_key
+        let signature = this.cid_content.signature
+        let data = this.cid_content.content
+        let verify_res = await axios.get(`${this.blockchain.verify_signature}/validate/string?pub_key=${pub_key}&signature=${signature}&data=${data}`)
+        this.verified = verify_res.data.is_valid
+    },
+    async mounted() {
+      await this.fetchCID()
+      await this.verify_signature()
+    },
   watch: {
     // eslint-disable-next-line
     '$route'(to, from) {
