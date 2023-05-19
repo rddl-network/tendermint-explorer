@@ -39,7 +39,7 @@ export default {
   data: () => ({
     jsonUrl: "",
     cid_content: void 0,
-    verified: false,
+    verified: undefined,
     loading: true
 
   }),
@@ -51,19 +51,39 @@ export default {
       this.cid_content = cid_res.data
       this.loading=false
       let cid_content_json = await axios.get(cid_res.data.url)
-      this.cid_content = JSON.parse( `{ "cid": "${cid_res.data.cid}", "URL": "${cid_res.data.url}", "content": "${cid_content_json.data}"}`)
+      this.verified = await this.verifySignature(cid_content_json.data)
+
+      this.cid_content = this.cid_content = {
+        "cid": cid_res.data.cid,
+        "URL": cid_res.data.url,
+        "content": JSON.stringify(cid_content_json.data),
+      };
+      if (this.verified !== undefined) {
+        this.cid_content.verified = this.verified;
+      }
+    },
+    async verifySignature(cid_content) {
+      // Ensure cid_content contains the necessary properties
+      if (!cid_content.StatusSNS || !cid_content.StatusSNS.PublicKey || !cid_content.StatusSNS.EnergySig || !cid_content.StatusSNS.EnergyHash) {
+        console.log("Required property missing from cid_content");
+        return undefined;
+      }
+      console.log(cid_content)
+      let pub_key = cid_content.StatusSNS.PublicKey
+      let signature = cid_content.StatusSNS.EnergySig
+      let hash = cid_content.StatusSNS.EnergyHash
+
+      // You might want to wrap the following in a try/catch block in case the request fails
+      try {
+        let verify_res = await axios.post(`${this.blockchain.verify_signature}/validate/hash?pub_key=${pub_key}&signature=${signature}&data=${hash}`)
+        return verify_res.data.is_valid
+      } catch (error) {
+        console.error("Failed to verify signature: ", error);
+      }
     },
   },
-    async verify_signature() {
-        let pub_key = this.cid_content.pub_key
-        let signature = this.cid_content.signature
-        let data = this.cid_content.content
-        let verify_res = await axios.get(`${this.blockchain.verify_signature}/validate/string?pub_key=${pub_key}&signature=${signature}&data=${data}`)
-        this.verified = verify_res.data.is_valid
-    },
     async mounted() {
       await this.fetchCID()
-      await this.verify_signature()
     },
   watch: {
     // eslint-disable-next-line
