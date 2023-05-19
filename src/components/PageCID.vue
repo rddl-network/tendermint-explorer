@@ -64,14 +64,15 @@ export default {
     },
     async verifySignature(cid_content) {
       // Ensure cid_content contains the necessary properties
-      if (!cid_content.StatusSNS || !cid_content.StatusSNS.PublicKey || !cid_content.StatusSNS.EnergySig || !cid_content.StatusSNS.EnergyHash) {
+      console.log(cid_content)
+      if (!cid_content || !cid_content.PublicKey || !cid_content.EnergySig || !cid_content.EnergyHash) {
         console.log("Required property missing from cid_content");
         return undefined;
       }
       console.log(cid_content)
-      let pub_key = cid_content.StatusSNS.PublicKey
-      let signature = cid_content.StatusSNS.EnergySig
-      let hash = cid_content.StatusSNS.EnergyHash
+      let pub_key = cid_content.PublicKey
+      let signature = cid_content.EnergySig
+      let hash = cid_content.EnergyHash
 
       // You might want to wrap the following in a try/catch block in case the request fails
       try {
