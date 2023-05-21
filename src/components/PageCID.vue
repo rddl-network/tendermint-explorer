@@ -50,13 +50,20 @@ export default {
       this.cid_url = cid_res.data.url
       this.cid_content = cid_res.data
       this.loading=false
-      let cid_content_json = await axios.get(cid_res.data.url)
-      this.verified = await this.verifySignature(cid_content_json.data)
+      let dataString = ""
+      await axios.get(cid_res.data.url, {
+        transformResponse: [(data) => data],
+      }). then((res) => {
+        dataString = res.data
+      }).catch((err) => {
+        console.log(err)
+      })
+      this.verified = await this.verifySignature(JSON.parse(dataString))
 
       this.cid_content = this.cid_content = {
         "cid": cid_res.data.cid,
         "URL": cid_res.data.url,
-        "content": JSON.stringify(cid_content_json.data),
+        "content": dataString,
       };
       if (this.verified !== undefined) {
         this.cid_content.verified = this.verified;
@@ -64,7 +71,6 @@ export default {
     },
     async verifySignature(cid_content) {
       // Ensure cid_content contains the necessary properties
-      console.log(cid_content)
       if (!cid_content || !cid_content.PublicKey || !cid_content.EnergySig || !cid_content.EnergyHash) {
         console.log("Required property missing from cid_content");
         return undefined;
