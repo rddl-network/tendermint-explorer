@@ -46,14 +46,14 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: explorer.rddl.io
+    - host: old-explorer.rddl.io
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretName: explorer.rddl.io-tls
+    - secretName: old-explorer.rddl.io-tls
       hosts:
-        - explorer.rddl.io
+        - old-explorer.rddl.io
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -171,7 +171,7 @@ planetmint:
       filter_peers = false
       [rpc]
       laddr = "tcp://0.0.0.0:26657"
-      cors_allowed_origins = ["https://explorer.rddl.io"]
+      cors_allowed_origins = ["https://old-explorer.rddl.io"]
       cors_allowed_methods = ["HEAD", "GET", "POST", ]
       cors_allowed_headers = ["Origin", "Accept", "Content-Type", "X-Requested-With", "X-Server-Time", ]
       grpc_laddr = ""
